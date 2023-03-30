@@ -8,7 +8,7 @@ require("dotenv").config({
 module.exports = {
   siteMetadata: {
     title: `The Gatsby Garage`,
-    siteUrl: `https://www.yourdomain.tld`,
+    siteUrl: `https://gatsby-store.local/`,
   },
   plugins: [
     {
