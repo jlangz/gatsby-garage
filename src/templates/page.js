@@ -1,9 +1,10 @@
-import React from "react";
-const Page = () => {
+import * as React from "react";
+import { BlockRendererProvider } from "@webdeveducation/wp-block-tools";
+
+const Page = (props) => {
+    console.log("Page props:", props);
     return(
-        <div>
-            This is a page template
-        </div>
+        <BlockRendererProvider allBlocks={props.pageContext.blocks} />
     );
 };
 
