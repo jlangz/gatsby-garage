@@ -11,12 +11,10 @@ const Page = (props) => {
         allBlocks={props.pageContext.blocks}
         renderComponent={BlockRendererComponents}
         siteDomain={process.env.GATSBY_WP_URL}
-        customInternalLinkComponent={({
-          children,
-          internalHref,
-          className,
-        }, index) => {
-          // console.log("ARGS: ", args);
+        customInternalLinkComponent={(
+          { children, internalHref, className },
+          index
+        ) => {
           return (
             <Link to={internalHref} className={className} key={index}>
               {children}
