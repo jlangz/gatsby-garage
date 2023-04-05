@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  BlockRendererProvider,
-  BlockRenderer,
-  getStyles,
-  getClasses,
-} from "@webdeveducation/wp-block-tools";
-import { GatsbyImage } from "gatsby-plugin-image";
+import { BlockRendererProvider } from "@webdeveducation/wp-block-tools";
+import { BlockRendererComponents } from "../config/blockRendererComponents";
+import { Link } from "gatsby";
 
 const Page = (props) => {
   console.log("Page props:", props);
@@ -13,40 +9,19 @@ const Page = (props) => {
     <div>
       <BlockRendererProvider
         allBlocks={props.pageContext.blocks}
-        renderComponent={(block) => {
-          switch (block.name) {
-            case "core/media-text":
-              console.log("RENDER BLOCKS: ", block);
-              const content = (
-                <div
-                  className={`flex p-4 ${
-                    block.attributes.verticalAlignment === "center"
-                      ? "items-center"
-                      : ""
-                  }`}
-                >
-                  <div>
-                    <BlockRenderer blocks={block.innerBlocks} />
-                  </div>
-                </div>
-              );
-              return (
-                <div
-                  key={block.id}
-                  style={getStyles(block)}
-                  className={getClasses(block)}
-                >
-                  {block.attributes.mediaPosition === "right" && content}
-                  <div>
-                    <GatsbyImage
-                      image={block.attributes.gatsbyImage}
-                      alt="Ok"
-                    />
-                  </div>
-                  {block.attributes.mediaPosition !== "right" && content}
-                </div>
-              );
-          }
+        renderComponent={BlockRendererComponents}
+        siteDomain={process.env.GATSBY_WP_URL}
+        customInternalLinkComponent={({
+          children,
+          internalHref,
+          className,
+        }, index) => {
+          // console.log("ARGS: ", args);
+          return (
+            <Link to={internalHref} className={className} key={index}>
+              {children}
+            </Link>
+          );
         }}
       />
     </div>
