@@ -43,9 +43,14 @@ export const Menu = () => {
   console.log("Main Menu Data: ", data);
   const { menuItems } = data.wp.acfOptionsMainMenu.mainMenu;
   return (
-    <div className="sticky top-0 z-20 flex h-16 justify-between bg-gradient-to-tr from-british-racing-green to-emerald-900 px-4 font-bold text-white items-center">
+    <div className="sticky top-0 z-20 flex h-16 items-center justify-between bg-gradient-to-tr from-british-racing-green to-emerald-900 px-4 font-bold text-white">
       <Link to="/">
-        <StaticImage src="../../../static/icon.png" layout="fixed" height={30} alt="Gatsby Classic Cars Logo" />
+        <StaticImage
+          src="../../../static/icon.png"
+          layout="fixed"
+          height={30}
+          alt="Gatsby Classic Cars Logo"
+        />
       </Link>
       <div className="flex h-full flex-1 justify-end">
         {(menuItems || []).map((menuItem, index) => (
@@ -76,9 +81,11 @@ export const Menu = () => {
         ))}
       </div>
       <div className="pl-4">
-        <CallToActionButton 
-          label={ data.wp.acfOptionsMainMenu.mainMenu.callToAction.label }
-          destination={ data.wp.acfOptionsMainMenu.mainMenu.callToAction.destination.uri } 
+        <CallToActionButton
+          label={data.wp.acfOptionsMainMenu.mainMenu.callToAction.label}
+          destination={
+            data.wp.acfOptionsMainMenu.mainMenu.callToAction.destination.uri
+          }
         />
       </div>
     </div>
