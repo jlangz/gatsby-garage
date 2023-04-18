@@ -43,7 +43,7 @@ export const Menu = () => {
   console.log("Main Menu Data: ", data);
   const { menuItems } = data.wp.acfOptionsMainMenu.mainMenu;
   return (
-    <div className="sticky top-0 z-20 flex h-16 justify-between bg-emerald-900 px-4 font-bold text-white items-center">
+    <div className="sticky top-0 z-20 flex h-16 justify-between bg-gradient-to-tr from-british-racing-green to-emerald-900 px-4 font-bold text-white items-center">
       <Link to="/">
         <StaticImage src="../../../static/icon.png" layout="fixed" height={30} alt="Gatsby Classic Cars Logo" />
       </Link>
