@@ -4,10 +4,26 @@ import {
   getStyles,
   getClasses,
 } from "@webdeveducation/wp-block-tools";
-import { MediaText } from "../components";
+import { CallToActionButton, MediaText } from "../components";
 
 export const BlockRendererComponents = (block) => {
   switch (block.name) {
+    case "tgg/ctabutton": {
+      console.log("CTA BUTTON DATA:", block);
+      const alignMap = {
+        'left': "text-left",
+        'center': "text-center",
+        'right': "text-right"
+      }
+      return (
+        <div className={alignMap[block.attributes.data.align]}>
+          <CallToActionButton
+            destination={block.attributes.data.destination}
+            label={block.attributes.data.label}
+          />
+        </div>
+      );
+    }
     case "core/media-text": {
       return (
         <MediaText
