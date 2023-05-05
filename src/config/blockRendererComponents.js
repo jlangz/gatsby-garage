@@ -4,7 +4,7 @@ import {
   getStyles,
   getClasses,
 } from "@webdeveducation/wp-block-tools";
-import { CallToActionButton, MediaText, Cover } from "../components";
+import { CallToActionButton, MediaText, Cover, TickItem } from "../components";
 import { GatsbyImage } from "gatsby-plugin-image";
 
 export const BlockRendererComponents = (block) => {
@@ -35,6 +35,20 @@ export const BlockRendererComponents = (block) => {
         </figure>
       );
     }
+    case "core/media-text": {
+      return (
+        <MediaText
+          key={block.id}
+          className={getClasses(block)}
+          style={getStyles(block)}
+          verticalAlignment={block.attributes.verticalAlignment}
+          gatsbyImage={block.attributes.gatsbyImage}
+          mediaPosition={block.attributes.mediaPosition}
+        >
+          <BlockRenderer blocks={block.innerBlocks} />
+        </MediaText>
+      );
+    }
     case "tgg/ctabutton": {
       const alignMap = {
         left: "text-left",
@@ -50,18 +64,11 @@ export const BlockRendererComponents = (block) => {
         </div>
       );
     }
-    case "core/media-text": {
-      return (
-        <MediaText
-          key={block.id}
-          className={getClasses(block)}
-          style={getStyles(block)}
-          verticalAlignment={block.attributes.verticalAlignment}
-          gatsbyImage={block.attributes.gatsbyImage}
-          mediaPosition={block.attributes.mediaPosition}
-        >
-          <BlockRenderer blocks={block.innerBlocks} />
-        </MediaText>
+    case "tgg/tickitem": {
+      return ( 
+      <TickItem key={block.id}>
+        <BlockRenderer blocks={block.innerBlocks} />
+      </TickItem>
       );
     }
     default:
