@@ -20,6 +20,13 @@ exports.createPages = async ({ actions, graphql }) => {
           uri
         }
       }
+      allWpCar {
+        nodes {
+          databaseId
+          blocks
+          uri
+        }
+      }
     }
   `);
 
@@ -27,8 +34,10 @@ exports.createPages = async ({ actions, graphql }) => {
     fs.writeFileSync("./public/themeStylesheet.css", data.wp.themeStylesheet);
   } catch (e) {}
 
-  for (let i = 0; i < data.allWpPage.nodes.length; i++) {
-    const page = data.allWpPage.nodes[i];
+  const allPages = [...data.allWpPage.nodes, ...data.allWpCar.nodes];
+
+  for (let i = 0; i < allPages.length; i++) {
+    const page = allPages[i];
     let blocks = page.blocks;
     blocks = assignIds(blocks);
     blocks = await assignGatsbyImage({
