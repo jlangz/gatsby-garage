@@ -8,6 +8,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        heading: "var(--wp--preset--font-family--aboreto)",
+      },
       colors: {
         "british-racing-green": "var(--wp--preset--color--british-racing-green)"
       }

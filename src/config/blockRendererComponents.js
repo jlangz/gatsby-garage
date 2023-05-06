@@ -6,11 +6,11 @@ import {
 } from "@webdeveducation/wp-block-tools";
 import { CallToActionButton, MediaText, Cover, TickItem } from "../components";
 import { GatsbyImage } from "gatsby-plugin-image";
+import numeral from "numeral";
 
 export const BlockRendererComponents = (block) => {
   switch (block.name) {
     case "core/cover": {
-      console.log("COVER BLOCK: ", block)
       return (
         <Cover
           key={block.id}
@@ -65,10 +65,19 @@ export const BlockRendererComponents = (block) => {
       );
     }
     case "tgg/tickitem": {
-      return ( 
-      <TickItem key={block.id}>
-        <BlockRenderer blocks={block.innerBlocks} />
-      </TickItem>
+      return (
+        <TickItem key={block.id}>
+          <BlockRenderer blocks={block.innerBlocks} />
+        </TickItem>
+      );
+    }
+    case "tgg/carprice": {
+      return (
+        <div className="flex justify-center">
+          <div className="bg-black py-5 px-8 font-heading text-3xl text-white opacity-75">
+            ${numeral(block.attributes.price).format("0,0")}
+          </div>
+        </div>
       );
     }
     default:
