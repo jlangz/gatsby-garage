@@ -4,7 +4,13 @@ import {
   getStyles,
   getClasses,
 } from "@webdeveducation/wp-block-tools";
-import { CallToActionButton, MediaText, Cover, TickItem, CarSearch } from "../components";
+import {
+  CallToActionButton,
+  MediaText,
+  Cover,
+  TickItem,
+  CarSearch,
+} from "../components";
 import { GatsbyImage } from "gatsby-plugin-image";
 import numeral from "numeral";
 
@@ -82,7 +88,11 @@ export const BlockRendererComponents = (block) => {
     }
     case "tgg/carsearch": {
       return (
-        <CarSearch key={block.id}></CarSearch>
+        <CarSearch
+          key={block.id}
+          style={getStyles(block)}
+          className={getClasses(block)}
+        ></CarSearch>
       );
     }
     default:
