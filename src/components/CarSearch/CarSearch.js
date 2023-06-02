@@ -6,9 +6,11 @@ import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { CallToActionButton } from "../CallToActionButton/CallToActionButton";
 
 export const CarSearch = (style, className) => {
+  const pageSize = 3;
+  const page = 1;
   const { data, loading, error } = useQuery(gql`
-    query CarsQuery {
-      cars {
+    query CarsQuery($size: Int!, $offset: Int!) {
+      cars (where: {offsetPagination: {size: $size, offset:$offset }}) {
         nodes {
           databaseId
           title
@@ -22,10 +24,23 @@ export const CarSearch = (style, className) => {
             }
           }
         }
+        pageInfo {
+          offsetPagination {
+            total
+          }
+        }
       }
     }
-  `);
-  console.log("DATA: ", data, loading, error);
+  `, {
+    variables: {
+      size: pageSize,
+      offset: pageSize * (page - 1)
+    }
+});
+const totalResults = data?.cars?.pageInfo?.offsetPagination?.total || 0;
+const totalPages = Math.ceil(totalResults / pageSize);
+
+console.log("DATA: ", data, loading, error);
 
   return (
     <div style={style} className={`alignwide ${className}`}>
