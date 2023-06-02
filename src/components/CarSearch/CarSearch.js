@@ -1,5 +1,9 @@
 import React from "react";
 import { useQuery, gql } from "@apollo/client";
+import numeral from "numeral";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTag } from "@fortawesome/free-solid-svg-icons";
+import { CallToActionButton } from "../CallToActionButton/CallToActionButton";
 
 export const CarSearch = (style, className) => {
   const { data, loading, error } = useQuery(gql`
@@ -39,7 +43,22 @@ export const CarSearch = (style, className) => {
                   alt=""
                 />
               )}
-              {car.title}
+              <div className="my-2 justify-between gap-2 font-heading text-xl font-bold lg:flex">
+                <div className="my-2">{car.title}</div>
+                <div className="text-right">
+                  <div className="inline-block whitespace-nowrap bg-emerald-900 p-2 text-white">
+                    <FontAwesomeIcon icon={faTag} />$
+                    {numeral(car.carDetails.price).format("0,0")}
+                  </div>
+                </div>
+              </div>
+              <div className="">
+                <CallToActionButton
+                  fullWidth
+                  label="View more details"
+                  destination={car.uri}
+                ></CallToActionButton>
+              </div>
             </div>
           ))}
         </div>
