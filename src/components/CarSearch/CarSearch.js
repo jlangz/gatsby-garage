@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { CallToActionButton } from "../CallToActionButton/CallToActionButton";
 import { PageNumber } from "./PageNumber";
+import { navigate } from "gatsby";
 
 export const CarSearch = (style, className) => {
   const pageSize = 3;
@@ -48,8 +49,42 @@ const totalPages = Math.ceil(totalResults / pageSize);
 
 console.log("DATA: ", data, loading, error);
 
+const handleSubmit = (e) => {
+  e.preventDefault();
+  const formData = new FormData(e.target);
+  const params = new URLSearchParams(formData);
+  params.set("page", "1");
+  navigate(`${window.location.pathname}?${params.toString()}`)
+}
+
   return (
     <div style={style} className={`alignwide ${className}`}>
+      <fieldset>
+        <form onSubmit={handleSubmit} className="mb-4 bg-stone-200 p-4 grid grid-cols-1 gap-4 md:grid-cols-[1fr_1fr_1fr_110px]">
+          <div>
+            <strong>Min Price</strong>
+            <input type="number" name="minPrice"/>
+          </div>
+          <div>
+            <strong>Max Price</strong>
+            <input type="number" name="maxPrice"/>
+          </div>
+          <div>
+            <strong>Color</strong>
+            <select name="color">
+              <option value="">Any Color</option>
+              <option value="red">Red</option>
+              <option value="green">Green</option>
+              <option value="white">White</option>              
+            </select>
+          </div>
+          <div className="flex">
+            <button type="submit" className="btn mt-auto mb-[1px]">
+              Submit
+            </button>
+          </div>
+        </form>
+      </fieldset>
       {!loading && data?.cars?.nodes?.length && (
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
           {data.cars.nodes.map((car) => (

@@ -42,6 +42,16 @@
   ol{
     list-style-type: decimal;
   }
+
+  input, select{
+    @apply w-full rounded-sm border border-slate-600 px-4 py-2;
+  }
+}
+
+@layer components{
+  .btn{
+    @apply cursor-pointer rounded-sm bg-yellow-500 py-2 px-4 text-center font-bold uppercase !text-slate-800 no-underline transition-colors hover:bg-yellow-400;
+  }
 }
 
 .wp-site-blocks {
