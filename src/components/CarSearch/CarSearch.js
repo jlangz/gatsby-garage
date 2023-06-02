@@ -4,10 +4,16 @@ import numeral from "numeral";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTag } from "@fortawesome/free-solid-svg-icons";
 import { CallToActionButton } from "../CallToActionButton/CallToActionButton";
+import { PageNumber } from "./PageNumber";
 
 export const CarSearch = (style, className) => {
   const pageSize = 3;
-  const page = 1;
+  let page = 1;
+  if(typeof window !== "undefined"){
+    const params = new URLSearchParams(window.location.search);
+    page = parseInt(params.get("page")) || 1;
+  }
+
   const { data, loading, error } = useQuery(gql`
     query CarsQuery($size: Int!, $offset: Int!) {
       cars (where: {offsetPagination: {size: $size, offset:$offset }}) {
@@ -78,6 +84,13 @@ console.log("DATA: ", data, loading, error);
           ))}
         </div>
       )}
+      {!!totalResults && 
+        <div className="flex items-center justify-center my-4 gap-2">
+          {Array.from({length: totalPages}).map((_, i) => {
+            return <PageNumber key={i} pageNumber={i + 1} />
+          })}
+        </div>
+      }
     </div>
   );
 };
